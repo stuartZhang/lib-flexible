@@ -10,17 +10,6 @@ module.exports = function(grunt) {
 
         clean: ['<%= distPath %>/*'],
 
-        copy: {
-            main: {
-                files: [{
-                    expand: true,
-                    cwd: './',
-                    src: ['package.json'],
-                    dest: '<%= distPath %>'
-                }]
-            }
-        },
-
         depconcat: {
             options: {
                 separator: '\n'
@@ -94,7 +83,7 @@ module.exports = function(grunt) {
         watch: {
             combo: {
                 files: ['package.json'],
-                tasks: ['copy', 'depcombo']
+                tasks: ['depcombo']
             }
 
             ,
@@ -141,7 +130,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('dist', ['clean', 'copy', 'depconcat', 'less', 'cssmin', 'css2js', 'uglify', 'depcombo']);
+    grunt.registerTask('dist', ['clean', 'depconcat', 'less', 'cssmin', 'css2js', 'uglify', 'depcombo']);
     grunt.registerTask('dev', ['watch']);
 
     grunt.registerTask('default', ['dist']);
