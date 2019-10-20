@@ -8,6 +8,11 @@
   "files": [
     "build"
   ],
+  "scripts": {
+    "prepublishOnly": "grunt",
+    "build": "grunt dist",
+    "dev": "grunt dev"
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:stuartZhang/lib-flexible.git"
