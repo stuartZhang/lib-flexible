@@ -1,26 +1,20 @@
 {
-  "name": "lib.flexible",
+  "name": "lib-flexible-stzhang",
   "description": "移动端自适应方案",
-  "version": "0.3.2",
-  "homepage": "http://gitlab.alibaba-inc.com/mtb/lib-flexible",
-  "author": [
-    {
-      "name": "寒泉",
-      "email": "hanquan.csf@taobao.com"
-    },
-    {
-      "name": "渚薰",
-      "email": "zhuxun.jb@taobao.com"
-    }
+  "version": "0.3.3",
+  "homepage": "https://github.com/stuartZhang/lib-flexible",
+  "author": "stuart_zhang<stuartpage@qq.com>",
+  "main": "build/flexible.js",
+  "files": [
+    "build"
   ],
   "repository": {
     "type": "git",
-    "url": "git@gitlab.alibaba-inc.com:mtb/lib-flexible.git"
+    "url": "git@github.com:stuartZhang/lib-flexible.git"
   },
   "licenses": [
     {
-      "type": "MIT",
-      "url": "/blob/master/LICENSE-MIT"
+      "type": "MIT"
     }
   ],
   "engines": {
