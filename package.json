@@ -1,7 +1,7 @@
 {
   "name": "lib-flexible-stzhang",
   "description": "移动端自适应方案",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "homepage": "https://github.com/stuartZhang/lib-flexible",
   "author": "stuart_zhang<stuartpage@qq.com>",
   "main": "build/flexible.js",
