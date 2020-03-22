@@ -1,7 +1,7 @@
 {
   "name": "lib-flexible-stzhang",
   "description": "移动端自适应方案",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/stuartZhang/lib-flexible",
   "author": "stuart_zhang<stuartpage@qq.com>",
   "main": "build/flexible.js",
@@ -9,7 +9,7 @@
   "typings": "types/lib-flexible-stzhang.d.ts",
   "files": [
     "build",
-    "types"
+    "types/lib-flexible-stzhang.d.ts"
   ],
   "scripts": {
     "prepublishOnly": "grunt",
