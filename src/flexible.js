@@ -1,4 +1,8 @@
 (function flexible(win, doc) {
+  if (typeof win.__rem2px__ == 'function' && typeof win.__px2rem__ == 'function') {
+    console.warn('lib-flexible-stzhang 被重复初始化');
+    return;
+  }
   var docEl = doc.documentElement;
   var dpr = win.devicePixelRatio || 1;
   // adjust body font size
