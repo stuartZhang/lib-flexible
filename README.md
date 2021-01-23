@@ -18,13 +18,23 @@
 
   `1rem = sqrt(viewWidth^2, viewHeight^2) / 10`
 
-## 用法
+## 使用方式
 
-为了不破坏原有基于视窗宽度的适配功能，我制作与导出了一个新的文件`lib-flexible-stzhang/build/flexible.umd`。它与`lib-flexible-stzhang`的默认导出共存。
+此插件支持两种启用方式：
 
-### 使用视窗宽度`remUnit`算法
+1. 直接副作用导入方式
+2. 导入与执行初始化函数方式
 
-1. 直接副作用导入`import "lib-flexible-stzhang";`即可。这是原有功能。
+和两种适配模式：
+
+1. 普通模式 - **使用视窗宽度`remUnit`算法**
+2. 对角线模式 - **使用视窗对角线`remUnit`算法**
+
+此外，为了不破坏原有基于视窗宽度的适配功能，我制作与导出了一个新的文件`lib-flexible-stzhang/build/flexible.umd`。它与`lib-flexible-stzhang`的默认导出共存。
+
+### 直接副作用导入
+
+1. 直接导入`import "lib-flexible-stzhang";`即可。这是原有功能。
 2. 或者更高端一些，将其直接配置到`webpack.entry`的数组里 --- 这样就不会污染你的业务代码了。看配置代码：
 
 ```javascript
@@ -38,19 +48,187 @@ module.exports = {
 };
 ```
 
-### 使用视窗对角线`remUnit`算法
+### 导入与执行初始化函数方式
 
-1. 不支持副作用导入方式。
-2. 需要显示地导入一个处理函数，并传参调用。
+请在入口文件的最开始位置，导入与执行初始化函数。
 
 ```javascript
 import flexible from 'lib-flexible-stzhang/build/flexible.umd';
 flexible({
-    diagonal: true
+    // 各个功能配置选项，好奇细节，请继续阅读
 });
 ```
 
 `npm`包提供了类型声明文件。所以，在`vscode`里会有代码提示出现的。
+
+## 功能配置参数
+
+### 最小适配宽度
+
+功能：
+
+当视窗宽度小于此值时，
+
+* 在【普通模式】下，就不再做缩小适配。
+* 在【对角线模式】下，就不再向新对角线的计算贡献缩小比率了。
+
+数据类型：
+
+* 当数据类型是数字时，其长度单位是`px`。
+* 当数据类型是字符时，其接受的字符串（正则）模式：`\d+(?:\.\d+)?(?:px|%)`
+  * `px`代表了像素单位
+  * `%`代表了相对于电脑或手机屏幕宽度`screen.availWidth`的百分数
+
+配置方式：
+
+* 直接副作用导入 - 此配置项是`html`标签的一个自定义数据属性`data-px2rem-min-width`
+
+```html
+<html data-px2rem-min-width="800">
+  <!-- 内容 -->
+</html>
+```
+
+* 导入与执行初始化函数方式
+
+```javascript
+import flexible from 'lib-flexible-stzhang/build/flexible.umd';
+flexible({
+  minWidth: 800
+});
+```
+
+### 最大适配宽度
+
+功能：
+
+当视窗宽度大于此值时，
+
+* 在【普通模式】下，就不再做放大适配。
+* 在【对角线模式】下，就不再向新对角线的计算贡献放大比率了。
+
+数据类型：
+
+* 当数据类型是数字时，其长度单位是`px`。
+* 当数据类型是字符时，其接受的字符串（正则）模式：`\d+(?:\.\d+)?(?:px|%)`
+  * `px`代表了像素单位
+  * `%`代表了相对于电脑或手机屏幕宽度`screen.availWidth`的百分数
+
+配置方式：
+
+* 直接副作用导入 - 此配置项是`html`标签的一个自定义数据属性`data-px2rem-max-width`
+
+```html
+<html data-px2rem-max-width="1369">
+  <!-- 内容 -->
+</html>
+```
+
+* 导入与执行初始化函数方式
+
+```javascript
+import flexible from 'lib-flexible-stzhang/build/flexible.umd';
+flexible({
+  maxWidth: 1369
+});
+```
+
+### 最小适配高度
+
+功能：
+
+* 仅当`diagonal: true`和开启了【对角线-适配模式】时，此配置项才生效。
+* 当视窗高度小于此值时，就不再向新对角线的计算贡献缩小比率了。
+
+数据类型：
+
+* 当数据类型是数字时，其长度单位是`px`。
+* 当数据类型是字符时，其接受的字符串（正则）模式：`\d+(?:\.\d+)?(?:px|%)`
+  * `px`代表了像素单位
+  * `%`代表了相对于电脑或手机屏幕宽度`screen.availHeight`的百分数
+
+配置方式：
+
+* 直接副作用导入 - 此配置项是`html`标签的一个自定义数据属性`data-px2rem-min-height`
+
+```html
+<html data-px2rem-min-height="600">
+  <!-- 内容 -->
+</html>
+```
+
+* 导入与执行初始化函数方式
+
+```javascript
+import flexible from 'lib-flexible-stzhang/build/flexible.umd';
+flexible({
+  minHeight: 600
+});
+```
+
+### 最大适配高度
+
+功能：
+
+* 仅当`diagonal: true`和开启了【对角线-适配模式】时，此配置项才生效。
+* 当视窗高度大于此值时，就不再向新对角线的计算贡献放大比率了。
+
+数据类型：
+
+* 当数据类型是数字时，其长度单位是`px`。
+* 当数据类型是字符时，其接受的字符串（正则）模式：`\d+(?:\.\d+)?(?:px|%)`
+  * `px`代表了像素单位
+  * `%`代表了相对于电脑或手机屏幕宽度`screen.availHeight`的百分数
+
+配置方式：
+
+* 直接副作用导入 - 此配置项是`html`标签的一个自定义数据属性`data-px2rem-max-height`
+
+```html
+<html data-px2rem-max-height="900">
+  <!-- 内容 -->
+</html>
+```
+
+* 导入与执行初始化函数方式
+
+```javascript
+import flexible from 'lib-flexible-stzhang/build/flexible.umd';
+flexible({
+  maxHeight: 900
+});
+```
+
+### 【对角线-适配模式】开关
+
+功能：
+
+* 根据视窗对角线长度来计算 remUnit。
+
+数据类型：
+
+* 可为空的布尔类型
+  * `undefined`或`false`代表关闭【对角线-适配模式】
+  * `true`代表开启【对角线-适配模式】
+
+配置方式：
+
+* 直接副作用导入 - 此配置项是`html`标签的一个自定义数据属性`data-px2rem-diagonal`
+
+```html
+<html data-px2rem-diagonal>
+  <!-- 内容 -->
+</html>
+```
+
+* 导入与执行初始化函数方式
+
+```javascript
+import flexible from 'lib-flexible-stzhang/build/flexible.umd';
+flexible({
+  diagonal: true
+});
+```
 
 ## 重点
 
